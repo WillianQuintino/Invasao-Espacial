@@ -8,9 +8,13 @@ public class SpaceshipScript : MonoBehaviour
 {
     public GameObject bala; // A ser preenchido via Inspector com o prefab bala
     public int speed = 10;
-    private int vidas = 3;
+    public float tempoEntreOsTiros = 0.5f; // 0.5 segundos entre os tiros
     public Text vidasUI; // Arrastar vidas da hierarquia nesta variavel
-
+    public AudioClip audioNaveColisao; // Arrastar o audio da bala
+    public AudioClip audioNaveExplosion; // Arrastar o audio da bala 
+    private int vidas = 3;
+    private float tempoDesdeUltimoTiro = 0f;
+    
     // Update is called once per frame
     void Update()
     {
@@ -19,6 +23,7 @@ public class SpaceshipScript : MonoBehaviour
         fireBullet();
         PreventLeavingScreen();
         vidasUI.text = "Vidas: " + vidas;
+        tempoDesdeUltimoTiro += Time.deltaTime;
     }
 
     void moveHorizontal()
@@ -30,21 +35,15 @@ public class SpaceshipScript : MonoBehaviour
         transform.Translate(horizontal, 0, 0);// Aplicando as mudanças
     }
 
-    void moveVertical()
-    {
-        // Move a nave verticalmente com setas ou com as teclas W e S
-        // Eixo Y – na vertical
-        float vertical = Input.GetAxis("Vertical") * speed * 
-        Time.deltaTime;
-        transform.Translate(0, vertical, 0);// Aplicando as mudanças
-    }
-
     void fireBullet()
     {
         // Quando a barra de espaços é pressionada ele atira
-        if (Input.GetKeyDown("space")) {
-            // Cria uma nova bala na posiçao atual da nave para que siga a nave
+        if (Input.GetKeyDown("space") && tempoDesdeUltimoTiro >= tempoEntreOsTiros) {
+            // Cria uma nova bala na posição atual da nave
             Instantiate(bala, transform.position, Quaternion.identity);
+
+            // Reinicia o tempo desde o último tiro
+            tempoDesdeUltimoTiro = 0f;
         }
     }
 
@@ -63,8 +62,11 @@ public class SpaceshipScript : MonoBehaviour
         if(outro.gameObject.tag == "balaEnimeTag")
         {            
             vidas --;
-            if (vidas == 0)
+            AudioSource.PlayClipAtPoint(audioNaveColisao, transform.position);
+            
+            if (vidas <= 0)
             {
+                AudioSource.PlayClipAtPoint(audioNaveExplosion, transform.position);
                 Destroy(this.gameObject);
                 SceneManager.LoadScene("fim");
             }

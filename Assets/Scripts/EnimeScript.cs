@@ -11,6 +11,7 @@ public class EnimeScript : MonoBehaviour
     public GameObject bala; // A ser preenchido via Inspector com o prefab bala
     public int ChanceEmUm = 10;
     public float timeLimitBullet = 1.0f; // Tempo limite em segundos
+    public AudioClip audioExplosion; // Arrastar o audio da bala 
     private Animator animator;
     private PointsScript ptScript; // Para se comunicar com o scriptNave
     private float timer = 0.0f;
@@ -37,7 +38,8 @@ public class EnimeScript : MonoBehaviour
     void OnTriggerEnter2D (Collider2D outro){
         if(outro.gameObject.tag == "balaTag")
         {            
-            ptScript.pontos ++;            
+            ptScript.pontos ++;
+            AudioSource.PlayClipAtPoint(audioExplosion, transform.position);
             Destroy(outro.gameObject);
             Destroy(this.gameObject);
         }

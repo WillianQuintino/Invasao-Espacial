@@ -8,6 +8,7 @@ public class EnimeCloneScript : MonoBehaviour
 {
     // Contem a velocidade do asteroide
     public int speed = -5;
+    public AudioClip audioShot; // Arrastar o audio da bala
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +20,7 @@ public class EnimeCloneScript : MonoBehaviour
     }
     
     void OnTriggerEnter2D (Collider2D outro){
+        AudioSource.PlayClipAtPoint(audioShot, transform.position);
         if(outro.gameObject.tag == "balaTag")
         {
             Destroy(outro.gameObject);

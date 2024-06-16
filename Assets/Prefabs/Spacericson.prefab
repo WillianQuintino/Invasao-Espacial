@@ -101,7 +101,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bala: {fileID: 91275298375481401, guid: 0c218c53c7d7db74383551420ba9c2d9, type: 3}
   speed: 10
+  tempoEntreOsTiros: 1
   vidasUI: {fileID: 0}
+  audioNaveColisao: {fileID: 8300000, guid: 25102d7bb2fb3a0458d0a6baa3ed4b90, type: 3}
+  audioNaveExplosion: {fileID: 8300000, guid: 752730cb6bdcce5489903d4d4fa5aeb2, type: 3}
 --- !u!50 &1592378953904971303
 Rigidbody2D:
   serializedVersion: 4
