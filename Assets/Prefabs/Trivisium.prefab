@@ -121,6 +121,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fa952e57f90fcd418b29236f97de29d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bala: {fileID: 91275298375481401, guid: 9824ce3e7078f424aafd67ba84d7e443, type: 3}
+  SpriteBala: {fileID: 239026641, guid: dda2d776b79fc4c45a2e679dd978e953, type: 3}
+  ChanceEmUm: 20
+  timeLimitBullet: 1
 --- !u!61 &6160147850103259282
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -150,7 +154,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.10322857, y: -0.6861979}

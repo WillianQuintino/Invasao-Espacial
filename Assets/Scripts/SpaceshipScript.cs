@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class SpaceshipScript : MonoBehaviour
 {
@@ -55,6 +56,19 @@ public class SpaceshipScript : MonoBehaviour
             float xPos = Mathf.Clamp (transform.position.x,-5.6f,5.6f);
             // Limitando
             transform.position = new Vector3(xPos, transform.position.y, transform.position.z);
+        }
+    }
+    
+    void OnTriggerEnter2D (Collider2D outro){
+        if(outro.gameObject.tag == "balaEnimeTag")
+        {            
+            vidas --;
+            if (vidas == 0)
+            {
+                Destroy(this.gameObject);
+                SceneManager.LoadScene("fim");
+            }
+            Destroy(outro.gameObject);
         }
     }
 }
